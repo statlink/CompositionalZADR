@@ -1,0 +1,14 @@
+Package: CompositionalZADR
+Type: Package
+Title: Compositional Data Analysis with the Zero Adjusted Dirichlet Distribution
+Version: 1.0
+Date: 2026-08-07
+Authors@R: person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr")
+Author: Michail Tsagris [aut, cre]
+Maintainer: Michail Tsagris <mtsagris@uoc.gr>
+Depends: R (>= 4.0)
+Imports: Compositional, graphics, grDevices, Rfast, stats
+Suggests: Rfast2
+Description: Regression, discriminant analysis, maximum likelihood estimation, random values generation, and contour plots of the zero adjusted Dirichlet distribution. The relevant paper is Tsagris M. and Stewart C. (2018). "A Dirichlet regression model for compositional data with zeros". Lobachevskii Journal of Mathematics, 39(3): 398--412. <doi:10.1134/S1995080218030198>. 
+License: GPL (>= 2)
+
