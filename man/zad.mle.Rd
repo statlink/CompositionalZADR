@@ -1,5 +1,5 @@
 \name{MLE of the zero adjusted Dirichlet distribution}
-\alias{zad.est}
+\alias{zad.mle}
 \title{
 MLE of the zero adjusted Dirichlet distribution
 }
@@ -9,7 +9,7 @@ MLE of the zero adjusted Dirichlet distribution.
 }
 
 \usage{
-zad.est(y)
+zad.mle(y)
 }
 
 \arguments{
@@ -70,6 +70,6 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 y <- as.matrix(iris[, 1:3])
 y <- y / rowSums(y)
 y[sample(1:450, 15) ] <- 0
-mod <- zad.est(y)
+mod <- zad.mle(y)
 }
 

@@ -1,4 +1,4 @@
-zad.est <- function(y) {
+zad.mle <- function(y) {
   ## y is the compositional data
   ## x is the independent variable(s)
   dm <- dim(y)
