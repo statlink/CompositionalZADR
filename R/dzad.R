@@ -20,17 +20,18 @@ dzad <- function(y, phi, mu, logged = TRUE) {
   ly1 <- log(y1)
   ly2 <- log( y[a2, , drop = FALSE] )
 
-  mu <- matrix(mu, nrow = n1, ncol = D, byrow = TRUE)
-  mu2 <- mu[1:n2, ]
+  mu <- matrix(mu, nrow = n, ncol = D, byrow = TRUE)
+  mu2 <- mu[a2, , drop = FALSE]
   ly3 <- ly2
   ind <- which(is.infinite(ly2))
   ly3[ind] <- 0
   mu2[ind] <- 0
+  mu2 <- mu2 / Rfast::rowsums(mu2)
 
   w <- lgamma( phi * mu2 )
   w[is.infinite(w)] <- 0
   f[a2] <- lgamma(phi) - Rfast::rowsums(w) + Rfast::rowsums( (mu2 * phi - 1) * ly3 ) + log(p2)
-  ba <- phi * mu
+  ba <- phi * mu[a1, , drop = FALSE ]
   f[a1] <- lgamma(phi) - sum( lgamma( ba[1, ] ) ) + Rfast::rowsums( (ba - 1) * ly1 ) + log(p1)
 
   if ( !logged )
