@@ -1,6 +1,7 @@
 zadr <- function(y, x, con = TRUE, xnew = NULL) {
   ## y is the compositional data
   ## x is the independent variable(s)
+  runtime <- proc.time()
   dm <- dim(y)
   D <- dm[2]   ;   d <- D - 1
   ## d is the dimensionality of the simplex
@@ -17,7 +18,6 @@ zadr <- function(y, x, con = TRUE, xnew = NULL) {
 
   x <- model.matrix(~., as.data.frame(x) )
   if ( !con )  x <- x[, -1, drop = FALSE]
-  runtime <- proc.time()
   ## next we separate the compositional vectors, those which contain
   ## zeros and those without. The same separation is performed for the
   ## independent variable(s)
