@@ -104,12 +104,11 @@ zadr.irls <- function(y, x, xnew = NULL, tol = 1e-6, maxit = 100) {
   est <- NULL
   if ( !is.null(xnew) ) {
     xnew <- model.matrix(~., as.data.frame(xnew) )
-    if ( !con )  xnew <- xnew[, -1, drop = FALSE]
-    ma <- cbind(1, exp( xnew %*% be ) )
+    ma <- cbind(1, exp( xnew %*% beta ) )
     est <- ma / Rfast::rowsums(ma)
     colnames(est) <- colnames(y)
   }
   runtime <- proc.time() - runtime
 
-  list( runtime = runtime, iters = iter, loglik = loglik + const, const = const, phi = phi, be = beta, est = est )
+  list( runtime = runtime, iters = iter, loglik = loglik + const, phi = phi, be = beta, est = est )
 }
