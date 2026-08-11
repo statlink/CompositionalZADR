@@ -6,9 +6,14 @@ zadr <- function(y, x, con = TRUE, xnew = NULL) {
   ## d is the dimensionality of the simplex
   n <- dm[1] ## sample size
 
-  beta.ini <- Compositional::kl.compreg(y, x, con = con)$be
-  ini.phi <- Compositional::zad.est(y)$phi
-  xini <- x
+  if ( con )  {
+    mod <- Compositional::zadr.irls(y, x)
+    beta.ini <- mod$be
+    ini.phi <- mod$phi
+  } else {
+    beta.ini <- Compositional::kl.compreg(y, x, con = con)$be
+    ini.phi <- Compositional::zad.est(y)$phi
+  }
 
   x <- model.matrix(~., as.data.frame(x) )
   if ( !con )  x <- x[, -1, drop = FALSE]
@@ -57,7 +62,7 @@ zadr <- function(y, x, con = TRUE, xnew = NULL) {
     sigma <- NULL
     seb <- NULL
   }
-  
+
   colnames(be) <- colnames( y[, -1] )
   rownames(be) <- colnames(x)
   est <- NULL
