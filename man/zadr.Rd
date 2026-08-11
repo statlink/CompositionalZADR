@@ -1,6 +1,7 @@
 \name{Zero adjusted Dirichlet regression}
 \alias{zadr}
 \alias{zadr2}
+\alias{zadr.irls}
 \title{
 Zero adjusted Dirichlet regression
 }
@@ -12,6 +13,7 @@ Zero adjusted Dirichlet regression.
 \usage{
 zadr(y, x, con = TRUE, xnew = NULL)
 zadr2(y, x, con = TRUE, xnew = NULL)
+zadr.irls(y, x, tol = 1e-6, maxit = 100)
 }
 
 \arguments{
@@ -29,6 +31,12 @@ If this is TRUE (default) then the constant term is estimated, otherwise the mod
 \item{xnew}{
 If you have new data use it, otherwise leave it NULL.
 }
+\item{tol}{
+The tolerance value to terminate the IRLS algorithm.
+}
+\item{maxit}{
+The maximum number of iterations allowed in the IRLS algortihm.
+}
 }
 
 \details{
@@ -38,6 +46,7 @@ vectors with at least one zero value. The second component may have many differe
 one for each pattern of zeros. The function "zadr2()" links the covariates to the alpha parameters
 of the Dirichlet distribution, i.e. it uses the classical parametrization of the distribution.
 This means, that there is a set of regression parameters for each component.
+The zadr.irls() function implements the IRLS algorithm.
 }
 
 \value{
@@ -47,6 +56,9 @@ The time required by the regression.
 }
 \item{loglik}{
 The value of the log-likelihood.
+}
+\item{iters}{
+The iterations required by the IRLS algorithm.
 }
 \item{phi}{
 The precision parameter, \eqn{\phi}.
@@ -83,7 +95,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 %}
 
 \seealso{
-\code{\link{zad.mle}
+\code{\link{zad.est}, \link{diri.reg}, \link{kl.compreg}, \link{ols.compreg}, \link{alfa.reg}
 }
 }
 
@@ -91,7 +103,8 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 x <- as.vector(iris[, 4])
 y <- as.matrix(iris[, 1:3])
 y <- y / rowSums(y)
+mod1 <- diri.reg(y, x)
 y[sample(1:450, 15) ] <- 0
-mod <- zadr(y, x)
+mod2 <- zadr(y, x)
 }
 
