@@ -104,6 +104,7 @@ x <- as.vector(iris[, 4])
 y <- as.matrix(iris[, 1:3])
 y <- y / rowSums(y)
 y[sample(1:450, 15) ] <- 0
+y <- y / rowSums(y)
 mod2 <- zadr(y, x)
 }
 

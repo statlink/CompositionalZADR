@@ -2,7 +2,7 @@ Package: CompositionalZADR
 Type: Package
 Title: Compositional Data Analysis with the Zero Adjusted Dirichlet Distribution
 Version: 1.0
-Date: 2026-08-11
+Date: 2026-08-16
 Authors@R: person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr")
 Author: Michail Tsagris [aut, cre]
 Maintainer: Michail Tsagris <mtsagris@uoc.gr>

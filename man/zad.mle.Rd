@@ -70,6 +70,7 @@ R implementation and documentation: Michail Tsagris \email{mtsagris@uoc.gr}.
 y <- as.matrix(iris[, 1:3])
 y <- y / rowSums(y)
 y[sample(1:450, 15) ] <- 0
+y <- y / rowSums(y)
 mod <- zad.mle(y)
 }
 

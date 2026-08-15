@@ -15,7 +15,7 @@ capabilities not contained in the paper or the package "Compositional".
 Package: \tab CompositionalZADR\cr
 Type: \tab Package\cr
 Version: \tab 1.0 \cr
-Date: \tab 2026-08-11 \cr
+Date: \tab 2026-08-16 \cr
 }
 }
 
