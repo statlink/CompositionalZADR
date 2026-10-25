@@ -1,7 +1,7 @@
 Package: CompositionalZADR
 Type: Package
 Title: Compositional Data Analysis with the Zero Adjusted Dirichlet Distribution
-Version: 1.0
+Version: 1.1
 Authors@R: c(person("Michail", "Tsagris", role = c("aut", "cre"), email = "mtsagris@uoc.gr"),
              person("Christos", "Adam", role = c("aut"),
              email = "pada4m4@gmail.com", comment = c(ORCID = "0009-0003-3244-7034")))

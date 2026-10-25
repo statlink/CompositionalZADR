@@ -3,99 +3,51 @@ zadr.irls <- function(y, x, xnew = NULL, tol = 1e-6, maxit = 100) {
   runtime <- proc.time()
 
   y <- as.matrix(y)
-
   n <- nrow(y)
-  D <- ncol(y)
-  p <- D - 1
-
+  D <- ncol(y)   ;   p <- D - 1
   # Design matrix: preserve the original construction
   x <- model.matrix(y ~ ., data = as.data.frame(x))
   K <- ncol(x)
-
   # Zero patterns
   pos <- y > 0
-
   npos <- Rfast::rowsums(pos)
-
   a1 <- which(npos == D)
   a2 <- which(npos != D)
-
   n1 <- length(a1)
   n2 <- n - n1
 
   # Constant contribution from the zero patterns
-  if (n2 > 0) {
-
+  if ( n2 > 0 ) {
     za <- y[a2, , drop = FALSE]
-
     za[za == 0] <- 1
     za[za < 1] <- 0
-
-    theta <- as.vector(
-      table(apply(za, 1, paste, collapse = ","))
-    )
-
-    const <- n1 * log(n1 / n) +
-      sum(theta * log(theta / n))
-
-  } else {
-
-    const <- n1 * log(n1 / n)
-  }
+    theta <- as.vector( table(apply(za, 1, paste, collapse = ",")) )
+    const <- n1 * log(n1 / n) + sum( theta * log(theta / n) )
+  } else  const <- n1 * log(n1 / n)
 
   # Positive-component indices
-  Pidx <- lapply(
-    seq_len(n),
-    function(i) which(pos[i, ])
-  )
-
+  Pidx <- lapply( seq_len(n), function(i) which(pos[i, ]) )
   logy <- log(y)
 
   # Compiled estimation
-  fit <- zadr_irls_cpp(
-    y = y,
-    x = x,
-    Pidx = Pidx,
-    logy = logy,
-    tol = tol,
-    maxit = maxit
-  )
-
+  fit <- zadr_irls_cpp( y = y, x = x, Pidx = Pidx, logy = logy,
+                        tol = tol, maxit = maxit )
   beta <- fit$be
-
   colnames(beta) <- paste0("Y", 2:D)
   rownames(beta) <- colnames(x)
-
   # Predictions: preserve the original calculation
   est <- NULL
-
-  if (!is.null(xnew)) {
-
-    xnew <- model.matrix(
-      ~ .,
-      data = as.data.frame(xnew)
-    )
-
-    ma <- cbind(
-      1,
-      exp(xnew %*% beta)
-    )
-
+  if ( !is.null(xnew) ) {
+    xnew <- model.matrix( ~ .,data = as.data.frame(xnew) )
+    ma <- cbind( 1, exp(xnew %*% beta) )
     est <- ma / Rfast::rowsums(ma)
-
     colnames(est) <- colnames(y)
   }
 
   runtime <- proc.time() - runtime
 
-  list(
-    runtime = runtime,
-    iters = fit$iters,
-    loglik = fit$loglik + const,
-    phi = fit$phi,
-    be = beta,
-    est = est
-  )
+  list( runtime = runtime, iters = fit$iters, loglik = fit$loglik + const,
+        phi = fit$phi, be = beta, est = est )
 }
 
 # zadr.irls <- function(y, x, xnew = NULL, tol = 1e-6, maxit = 100) {
