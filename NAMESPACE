@@ -1,10 +1,10 @@
-#useDynLib(MXM, .registration = TRUE)
+useDynLib(CompositionalZADR, .registration = TRUE)
 
+importFrom(Rcpp, evalCpp)
 importFrom("Rfast", rowsums)
 importFrom("Compositional", rdiri)
 importFrom("stats", ".lm.fit", "model.matrix", "optim")
 importFrom("grDevices", colorRampPalette)
 importFrom("graphics", axis, filled.contour, contour, par, points, text)
 
-exportPattern("^[[:alpha:]]+")
-exportPattern("^[^\\.]")
+export(dzad, rzad, zad.contour, zad.mle, zadr.irls, zadr, zadr)
